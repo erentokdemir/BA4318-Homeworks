@@ -12,13 +12,18 @@ df = pd.read_csv("Danish Kron.txt", sep='\t')
 
 # HOMEWORK PART BEGINS
 
-def repzerovaluesindfcolumn(datafr,column):
-    values= datafr.iloc[:, column]
-    for i in range(len(values)):
-        if values[i] == 0:
-            values[i] = (values [i-1] + values[i+1]) / 2
-            
-repzerovaluesindfcolumn(df,1)   
+def replacezero(dataframe):
+    count_row = dataframe.shape[0]  
+    count_col = dataframe.shape[1]  
+    listofzero = []
+    for i in range(count_row):
+        for j in range(count_col):
+            if dataframe.iloc[i,j] == 0:
+                listofzero.append((i,j))
+    for point in listofzero:
+        dataframe.iloc[point[0], point[1]]= (dataframe.iloc[point[0]-1, point [1]] + dataframe.iloc[point[0]+1, point[1]])/ 2
+                    
+replacezero(df)
         
 #HOMEWOK PART ENDS        
         
